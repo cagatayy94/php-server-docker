@@ -7,6 +7,6 @@ This repo contains php script that works on php build in server (not nginx or ap
 Install docker engine on the machine. After that run 
 
 ```bash
-docker build -t  my-php-server .
+docker build -t my-php-server .
 docker run -d -p 80:80 my-php-server
 ```
