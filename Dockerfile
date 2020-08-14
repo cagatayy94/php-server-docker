@@ -1,4 +1,4 @@
-FROM php
+FROM php:7.1-cli
 
 ENV APP_DIR /app
 ENV APPLICATION_ENV development
@@ -16,6 +16,16 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');    
     exit(1);"                                                                   \
  && php composer-setup.php -- --filename=composer --install-dir=/usr/local/bin  \
  && rm composer-setup.php
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y git \ 
+    libzip-dev \
+    zip \
+  	&& docker-php-ext-configure zip --with-libzip \
+  	&& docker-php-ext-install zip
+
+RUN composer install --no-scripts --no-autoloader
 
 EXPOSE 80
 
